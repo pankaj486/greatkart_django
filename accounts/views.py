@@ -104,7 +104,7 @@ def login(request):
             except:
                 pass
             auth.login(request, user)
-            messages.success(request, 'You are new logged in.')
+            messages.success(request, 'You are now logged in.')
             url = request.META.get('HTTP_REFERER')
             try:
                 query = request.utils.urlparse(url).query
@@ -112,9 +112,9 @@ def login(request):
                 params = dict(x.split('=') for x in query.split('&'))
                 if 'next' in params:
                     nextpage = params['next']
-                    return redirect('nextpage')
+                    return redirect(nextpage)
             except:
-                pass
+                return redirect('dashboard')
         else:
             messages.error(request, 'invalid login credentials')
             return redirect('login')
